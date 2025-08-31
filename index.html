@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Phản xạ siêu tốc</title>
+  <style>
+    body { text-align: center; font-family: sans-serif; background: #111; color: #fff; }
+    #gameBtn { padding: 20px 40px; font-size: 24px; margin-top: 50px; background: #ff4444; color: white; border: none; border-radius: 10px; cursor: pointer; }
+    #score, #timer { font-size: 28px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🔥 Phản xạ siêu tốc 🔥</h1>
+  <button id="gameBtn">Click ngay!</button>
+  <div id="score">Điểm: 0</div>
+  <div id="timer">Thời gian: 5.00s</div>
+
+  <script>
+    let score = 0;
+    let timeLeft = 5.00;
+    let timerInterval;
+
+    const btn = document.getElementById("gameBtn");
+    const scoreDisplay = document.getElementById("score");
+    const timerDisplay = document.getElementById("timer");
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timeLeft -= 0.01;
+        timerDisplay.textContent = `Thời gian: ${timeLeft.toFixed(2)}s`;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          btn.disabled = true;
+          btn.textContent = "Hết giờ!";
+        }
+      }, 10);
+    }
+
+    btn.addEventListener("click", () => {
+      if (score === 0) startTimer();
+      score++;
+      timeLeft -= 0.1; // Giảm thời gian mỗi lần click
+      scoreDisplay.textContent = `Điểm: ${score}`;
+    });
+  </script>
+</body>
+</html>
